@@ -1,23 +1,34 @@
 import React, { useState } from "react";
-import './LoginValidation';
+import "./LoginValidation";
+import { useNavigate } from "react-router-dom";
+// import "./login.css";
 const Login = () => {
-  const[values,setValues]=useState({
-    email: '',
-    password: ''
-  })
+  const navigate = useNavigate();
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+  });
 
-const handleSubmit=(event)=>{
-  event.preventDefault();
-}
-
-const handleInput=(event)=>{
-  setValues(prev=>({...prev,[event.target.value]:[event.target.value]}))  
-}
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+  const handleButtonClickLogin = () => {
+    navigate("/create");
+  };
+  const handleInput = (event) => {
+    setValues((prev) => ({
+      ...prev,
+      [event.target.value]: [event.target.value],
+    }));
+  };
   return (
-    <div className="d-flex justify-content-center align-items-center bg-primary vh-100">
+    <div
+      className="d-flex justify-content-center align-items-center vh-100 border w-100"
+      id="main"
+    >
       <div className="bg-white p-3 rounded w-25">
         <form action="" onSubmit={handleSubmit}>
-          <h2 className="text-center mb-4">Sign In</h2>
+          <h2 className="text-center mb-4">Log In</h2>
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
               Email
@@ -31,7 +42,7 @@ const handleInput=(event)=>{
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="password" className="form-label" >
+            <label htmlFor="password" className="form-label">
               Password
             </label>
             <input
@@ -42,8 +53,15 @@ const handleInput=(event)=>{
               name="password"
             />
           </div>
-          <button className="btn btn-success w-100 mb-2" type="submit">Log in</button>
-          <button className="btn btn-default border w-100 bg-light">Create Account</button>
+          <button className="btn btn-success w-100 mb-2" type="submit">
+            Log in
+          </button>
+          <button
+            className="btn btn-default border w-100 bg-light"
+            onClick={handleButtonClickLogin}
+          >
+            Create Account
+          </button>
         </form>
       </div>
     </div>
