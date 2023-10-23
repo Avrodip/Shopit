@@ -7,6 +7,19 @@ const Signup = () => {
         <form>
           <h2 className="text-center mb-4">Register</h2>
           <div className="mb-3">
+            <label htmlFor="role" className="form-label">
+              Role
+            </label>
+            <select
+              className="form-control rounded-0"
+              name="role"
+            >
+              <option value="admin">Admin</option>
+              <option value="user">User</option>
+              <option value="supplier">Supplier</option>
+            </select>
+          </div>
+          <div className="mb-3">
             <label htmlFor="name" className="form-label">
               Name
             </label>

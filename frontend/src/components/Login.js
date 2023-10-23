@@ -1,31 +1,33 @@
 import React, { useState } from "react";
-import "./LoginValidation";
 import { useNavigate } from "react-router-dom";
-// import "./login.css";
+
 const Login = () => {
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
     password: "",
+    role: "user", // Set the default role to "user"
   });
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // Access the selected role using values.role
   };
+
   const handleButtonClickLogin = () => {
     navigate("/create");
   };
+
   const handleInput = (event) => {
+    const { name, value } = event.target;
     setValues((prev) => ({
       ...prev,
-      [event.target.value]: [event.target.value],
+      [name]: value,
     }));
   };
+
   return (
-    <div
-      className="d-flex justify-content-center align-items-center vh-100 border w-100"
-      id="main"
-    >
+    <div className="d-flex justify-content-center align-items-center vh-100 border w-100" id="main">
       <div className="bg-white p-3 rounded w-25">
         <form action="" onSubmit={handleSubmit}>
           <h2 className="text-center mb-4">Log In</h2>
@@ -52,6 +54,21 @@ const Login = () => {
               className="form-control rounded-0"
               name="password"
             />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="role" className="form-label">
+              Role
+            </label>
+            <select
+              className="form-control rounded-0"
+              name="role"
+              value={values.role}
+              onChange={handleInput}
+            >
+              <option value="admin">Admin</option>
+              <option value="user">User</option>
+              <option value="supplier">Supplier</option>
+            </select>
           </div>
           <button className="btn btn-success w-100 mb-2" type="submit">
             Log in
