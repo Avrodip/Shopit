@@ -1,13 +1,22 @@
-import React from 'react'
-
+import React from "react";
+import "./bg.css";
 const Signup = () => {
+  const divStyle = {
+    BackgroundImage:
+      'url("/https://raw.githubusercontent.com/gar-git/images/main/21727022_6505894.jpg")', // Replace with the path to your image
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+  };
   return (
-      <div className="d-flex justify-content-center align-items-center bg-primary vh-100">
-      <div className="bg-white p-3 rounded w-25">
+    <div
+      className="d-flex justify-content-center align-items-center  vh-100"
+      style={divStyle}
+    >
+      <div className="bg-white p-3 rounded w-25 border border-dark rounded p-4">
         <form>
           <h2 className="text-center mb-4">Register</h2>
-          <div className="mb-3">
-            <label htmlFor="name" className="form-label">
+          <div className="mb-3 text-left">
+            <label htmlFor="name" className=" row form-label  text-left">
               Name
             </label>
             <input
@@ -16,8 +25,8 @@ const Signup = () => {
               className="form-control rounded-0"
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
+          <div className="mb-3 te">
+            <label htmlFor="email" className=" row form-label ">
               Email
             </label>
             <input
@@ -27,7 +36,7 @@ const Signup = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="password" className="form-label">
+            <label htmlFor="password" className="row form-label">
               Password
             </label>
             <input
@@ -37,11 +46,10 @@ const Signup = () => {
             />
           </div>
           <button className="btn btn-success w-100 mb-2">Register</button>
-         
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;

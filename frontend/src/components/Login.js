@@ -26,11 +26,11 @@ const Login = () => {
       className="d-flex justify-content-center align-items-center vh-100 border w-100"
       id="main"
     >
-      <div className="bg-white p-3 rounded w-25">
+      <div className="bg-white p-3 rounded w-25 border border-dark rounded p-4">
         <form action="" onSubmit={handleSubmit}>
           <h2 className="text-center mb-4">Log In</h2>
           <div className="mb-3">
-            <label htmlFor="email" className="form-label">
+            <label htmlFor="email" className="row form-label">
               Email
             </label>
             <input
@@ -42,7 +42,7 @@ const Login = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="password" className="form-label">
+            <label htmlFor="password" className="row form-label">
               Password
             </label>
             <input
