@@ -1,17 +1,44 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ setLoggedIn }) => {
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
     password: "",
-    role: "user", // Set the default role to "user"
+    role: "user",
   });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Access the selected role using values.role
+
+    const loginData = {
+      email: values.email,
+      password: values.password,
+      role: values.role,
+    };
+
+    try {
+      const response = await fetch("http://localhost:3002/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
+      });
+
+      if (response.status === 200) {
+        console.log("Login successful");
+        setLoggedIn(true);
+        navigate("/home");
+      } else if (response.status === 401) {
+        console.log("Invalid credentials");
+      } else {
+        console.error("Server error");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   const handleButtonClickLogin = () => {
@@ -28,11 +55,11 @@ const Login = () => {
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 border w-100" id="main">
-      <div className="bg-white p-3 rounded w-25">
+      <div className="bg-white p-3 rounded w-25 border border-dark rounded p-4">
         <form action="" onSubmit={handleSubmit}>
           <h2 className="text-center mb-4">Log In</h2>
           <div className="mb-3">
-            <label htmlFor="email" className="form-label">
+            <label htmlFor="email" className="row form-label">
               Email
             </label>
             <input
@@ -44,7 +71,7 @@ const Login = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="password" className="form-label">
+            <label htmlFor="password" className="row form-label">
               Password
             </label>
             <input
@@ -56,7 +83,7 @@ const Login = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="role" className="form-label">
+            <label htmlFor="role" className="row form-label">
               Role
             </label>
             <select
