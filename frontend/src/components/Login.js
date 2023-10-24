@@ -66,7 +66,7 @@ const Login = ({ setLoggedIn }) => {
               type="email"
               placeholder="Enter Email"
               onChange={handleInput}
-              className="form-control rounded-0"
+              className="form-control rounded-0" 
               name="email"
             />
           </div>
