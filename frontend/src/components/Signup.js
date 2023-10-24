@@ -3,6 +3,7 @@ import "./bg.css";
 
 const Signup = () => {
   const [role, setRole] = useState("user");
+  const [showAdminFields, setShowAdminFields] = useState(false);
 
   const divStyle = {
     backgroundImage:
@@ -13,6 +14,12 @@ const Signup = () => {
 
   const handleRoleChange = (e) => {
     setRole(e.target.value);
+
+    if (e.target.value === "admin") {
+      setShowAdminFields(true);
+    } else {
+      setShowAdminFields(false);
+    }
   };
 
   return (
@@ -103,14 +110,36 @@ const Signup = () => {
               value={role}
               onChange={handleRoleChange}
             >
-              <option value="" selected disabled>
+              <option value="" disabled>
                 Select Role
               </option>
               <option value="admin">Admin</option>
               <option value="user">User</option>
-              <option value="supplier">Supplier</option>
             </select>
           </div>
+          {showAdminFields && (
+            <div>
+              <div className="mb-3">
+                <label htmlFor="position" className="form-label">
+                  Position
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter Position"
+                  className="form-control rounded-0"
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="hireDate" className="form-label">
+                  Hire Date
+                </label>
+                <input
+                  type="date"
+                  className="form-control rounded-0"
+                />
+              </div>
+            </div>
+          )}
           <button className="btn btn-success w-100 mb-2">Register</button>
         </form>
       </div>
