@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
+import "./style.css";
 const NavbarContainer = styled.div`
   width: 100%;
   height: 60px;
@@ -52,7 +52,6 @@ function Navbar({ loggedIn, setLoggedIn }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    
     setLoggedIn(false);
     navigate("/login");
   };
@@ -89,7 +88,11 @@ function Navbar({ loggedIn, setLoggedIn }) {
           <span className="gs">Log Out</span>
         </ActionButton>
       ) : (
-        <ActionButton href="#" className="action_btn" onClick={() => navigate("/login")}>
+        <ActionButton
+          href="#"
+          className="action_btn"
+          onClick={() => navigate("/login")}
+        >
           <span className="gs">Log In</span>
         </ActionButton>
       )}
