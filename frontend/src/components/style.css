@@ -4,7 +4,13 @@
     box-sizing: border-box;
     font-family:'Open Sans',  sans-serif;
 }
-
+#nb{
+    position: fixed;
+    opacity:0.9;
+}
+Link{
+    opacity: 1;
+}
 body{
     height: 100vh;
     background-color: #000;

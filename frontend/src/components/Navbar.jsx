@@ -57,7 +57,7 @@ function Navbar({ loggedIn, setLoggedIn }) {
   };
 
   return (
-    <NavbarContainer>
+    <NavbarContainer id="nb">
       <Logo>
         <Link to="/">
           <img
