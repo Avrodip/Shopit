@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = ({ setLoggedIn }) => {
   const navigate = useNavigate();
@@ -28,16 +30,25 @@ const Login = ({ setLoggedIn }) => {
       });
 
       if (response.status === 200) {
+        const data = await response.json();
+        const token = data.token;
+
+        localStorage.setItem("token", token);
+
+        toast.success("Login successful", { autoClose: 3000 });
         console.log("Login successful");
         setLoggedIn(true);
         navigate("/home");
       } else if (response.status === 401) {
         console.log("Invalid credentials");
+        toast.error("Invalid credentials", { autoClose: 3000 });
       } else {
         console.error("Server error");
+        toast.error("Server error", { autoClose: 3000 });
       }
     } catch (error) {
       console.error("Error:", error);
+      toast.error("An error occurred", { autoClose: 3000 });
     }
   };
 
@@ -108,6 +119,7 @@ const Login = ({ setLoggedIn }) => {
           </button>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };
