@@ -19,7 +19,7 @@ const Login = ({ setLoggedIn }) => {
       password: values.password,
       role: values.role,
     };
-
+    
     try {
       const response = await fetch("http://localhost:3002/login", {
         method: "POST",
