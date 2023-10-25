@@ -48,7 +48,7 @@ const Signup = () => {
       position: showAdminFields ? position : null,
       hireDate: showAdminFields ? hireDate : null,
     };
-console.log("hi",userData);
+    console.log("hi", userData);
     try {
       const response = await fetch("http://localhost:3002/signup", {
         method: "POST",
@@ -72,7 +72,10 @@ console.log("hi",userData);
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100" style={divStyle}>
+    <div
+      className="d-flex justify-content-center align-items-center vh-100"
+      style={divStyle}
+    >
       <div className="bg-white p-3 rounded w-75 border border-dark rounded p-4">
         <form>
           <h2 className="text-center mb-4">Register</h2>
@@ -168,11 +171,7 @@ console.log("hi",userData);
             <label htmlFor="role" className="form-label">
               Role
             </label>
-            <select
-              className="form-control rounded-0"
-              value={role}
-              onChange={handleRoleChange}
-            >
+            <select className="form-control rounded-0" value={role}>
               <option value="user">User</option>
               <option value="admin">Admin</option>
               <option value="supplier">Supplier</option>

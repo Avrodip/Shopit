@@ -5,17 +5,19 @@ import Signup from "./components/Signup";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter,Routes,Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Products from "./components/Products";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar loggedIn={loggedIn} setLoggedIn={setLoggedIn} /> 
+        <Navbar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
         <Routes>
           <Route path="/login" element={<Login setLoggedIn={setLoggedIn} />} />
           <Route path="/create" element={<Signup />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/products" element={<Products />} />
         </Routes>
       </BrowserRouter>
     </div>
