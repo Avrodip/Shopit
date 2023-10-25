@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const mysql = require('mysql2/promise');
-
+const bcrypt=require('bcrypt');
 const dbConfig = {
   user: "root",
   host: "localhost",
@@ -58,12 +58,12 @@ app.get('/users', async (req, res) => {
 
 app.post('/login', async (req, res) => {
   try {
-    const { email, password, role } = req.body;
+    const { username, password, role } = req.body;
     
     const connection = await mysql.createConnection(dbConfig);
     const tableName = (role === 'admin') ? 'admins' : (role === 'supplier') ? 'suppliers' : 'users';
 
-    const [rows] = await connection.execute(`SELECT * FROM ${tableName} WHERE email = ? AND password = ?`, [email, password]);
+    const [rows] = await connection.execute(`SELECT * FROM ${tableName} WHERE Username = ? AND password = ?`, [username, password]);
 
     connection.end();
     

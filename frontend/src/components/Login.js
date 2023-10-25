@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Login = ({ setLoggedIn }) => {
   const navigate = useNavigate();
   const [values, setValues] = useState({
-    email: "",
+    username: "",
     password: "",
     role: "user",
   });
@@ -13,7 +13,7 @@ const Login = ({ setLoggedIn }) => {
     event.preventDefault();
 
     const loginData = {
-      email: values.email,
+      username: values.username,
       password: values.password,
       role: values.role,
     };
@@ -59,15 +59,15 @@ const Login = ({ setLoggedIn }) => {
         <form action="" onSubmit={handleSubmit}>
           <h2 className="text-center mb-4">Log In</h2>
           <div className="mb-3">
-            <label htmlFor="email" className="row form-label">
-              Email
+            <label htmlFor="username" className="row form-label">
+              username
             </label>
             <input
-              type="email"
-              placeholder="Enter Email"
+              type="username"
+              placeholder="Enter username"
               onChange={handleInput}
               className="form-control rounded-0" 
-              name="email"
+              name="username"
             />
           </div>
           <div className="mb-3">
