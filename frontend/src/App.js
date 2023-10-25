@@ -18,6 +18,7 @@ function App() {
           <Route path="/create" element={<Signup />} />
           <Route path="/home" element={<Home />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/jwt" element={<Test />} />
         </Routes>
       </BrowserRouter>
     </div>

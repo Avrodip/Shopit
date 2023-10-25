@@ -13,7 +13,7 @@ const dbConfig = {
 app.use(express.json());
 app.use(cors());
 
-app.get("/admin", async (req, res) => {
+app.get("/admin", verify, async (req, res) => {
   try {
     const connection = await mysql.createConnection(dbConfig);
 
@@ -41,7 +41,7 @@ app.get("/suppliers", async (req, res) => {
   }
 });
 
-app.get("/users", async (req, res) => {
+app.get("/users", verify, async (req, res) => {
   try {
     const connection = await mysql.createConnection(dbConfig);
 
@@ -71,7 +71,18 @@ app.post("/login", async (req, res) => {
     connection.end();
 
     if (rows.length === 1) {
-      res.status(200).json({ message: "Login successful" });
+      const user = { username, role };
+      const secretKey = "ABCDZYX";
+
+      jwt.sign({ user }, secretKey, (err, token) => {
+        if (err) {
+          console.error("JWT Error:", err);
+          res.status(500).json({ error: "Internal Server Error" });
+        } else {
+          console.log(token);
+          res.status(200).json({ token, message: "Login successful" });
+        }
+      });
     } else {
       res.status(401).json({ error: "Invalid credentials" });
     }
@@ -122,6 +133,25 @@ app.post("/signup", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+function verify(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (token == null) {
+    return res.sendStatus(401);
+  }
+
+  const secretKey = "ABCDZYX";
+  jwt.verify(token, secretKey, (err, user) => {
+    if (err) {
+      console.error("JWT Verification Error:", err);
+      return res.sendStatus(403);
+    }
+
+    req.user = user;
+    next();
+  });
+}
 
 const port = 3002;
 app.listen(port, () => {
