@@ -21,3 +21,4 @@ const Home = ({ loggedIn }) => {
 }
 
 export default Home;
+
