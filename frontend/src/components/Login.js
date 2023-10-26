@@ -38,7 +38,17 @@ const Login = ({ setLoggedIn }) => {
         toast.success("Login successful", { autoClose: 3000 });
         console.log("Login successful");
         setLoggedIn(true);
-        navigate("/home");
+
+
+        // BUTTONS FOR ADMIN
+        if (values.role === "admin") {
+          navigate("/Home"); 
+        } else {
+          alert("Invalid Login");
+        }
+// 
+
+        
       } else if (response.status === 401) {
         console.log("Invalid credentials");
         toast.error("Invalid credentials", { autoClose: 3000 });
