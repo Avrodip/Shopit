@@ -187,6 +187,17 @@ function verify_admin2(req, res, next) {
 }
 }
 
+app.get("/products", (req, res) => {
+  const q = "SELECT * FROM products";
+  db.query(q, (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
+
 const port = 3002;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
