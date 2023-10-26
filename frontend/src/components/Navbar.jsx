@@ -18,6 +18,7 @@ const Logo = styled.div`
 `;
 
 const Links = styled.ul`
+  color: white;
   display: flex;
   gap: 32px;
   text-decoration: none;
