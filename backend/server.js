@@ -221,6 +221,19 @@ function verify(req, res, next) {
     next();
   });
 }
+app.get("/products", async (req, res) => {
+  try {
+    const connection = await mysql.createConnection(dbConfig);
+
+    const [rows] = await connection.execute("Select * from products");
+
+    connection.end();
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 const port = 3002;
 app.listen(port, () => {
