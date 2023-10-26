@@ -28,7 +28,7 @@ function App() {
               />
             }
           />
-          <Route path="/signup" element={<Signup loggedIn={loggedIn} />} />
+          <Route path="/create" element={<Signup loggedIn={loggedIn} />} />
           <Route path="/home" element={<Home loggedIn={loggedIn} />} />
           <Route path="/products" element={<Products loggedIn={loggedIn} />} />
           <Route path="/orderconfirm" element={<Orderconfirmation loggedIn={loggedIn} logindet={logindet}/>} />
