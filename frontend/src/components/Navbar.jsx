@@ -54,6 +54,7 @@ function Navbar({ loggedIn, setLoggedIn }) {
 
   const handleLogout = () => {
     setLoggedIn(false);
+    localStorage.clear();
     navigate("/login");
   };
 

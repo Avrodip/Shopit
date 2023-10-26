@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Login = ({ setLoggedIn }) => {
+const Login = ({ setLoggedIn, setLogindet }) => {
   const navigate = useNavigate();
   const [values, setValues] = useState({
     username: "",
@@ -13,14 +13,16 @@ const Login = ({ setLoggedIn }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     const loginData = {
       username: values.username,
       password: values.password,
       role: values.role,
     };
-    
+
     try {
+      console.log(values.username);
+      console.log(values.password);
       const response = await fetch("http://localhost:3002/login", {
         method: "POST",
         headers: {
@@ -36,24 +38,22 @@ const Login = ({ setLoggedIn }) => {
         localStorage.setItem("token", token);
 
         toast.success("Login successful", { autoClose: 3000 });
-        console.log("Login successful");
         setLoggedIn(true);
 
+        // Set logindet based on your requirements
+        setLogindet({
+          username: values.username,
+          password: values.password,
+        });
 
-        // BUTTONS FOR ADMIN
         if (values.role === "admin") {
-          navigate("/Home"); 
+          navigate("/home"); // Redirect to the admin page
         } else {
-          alert("Invalid Login");
+          navigate("/user-home"); // Redirect to the user home page, for example
         }
-// 
-
-        
       } else if (response.status === 401) {
-        console.log("Invalid credentials");
         toast.error("Invalid credentials", { autoClose: 3000 });
       } else {
-        console.error("Server error");
         toast.error("Server error", { autoClose: 3000 });
       }
     } catch (error) {
