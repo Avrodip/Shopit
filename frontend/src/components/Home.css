@@ -1,0 +1,51 @@
+body{
+    background: white ;
+}
+h1{
+    text-align: center;
+    padding-top: 20px;
+}
+
+.btn-mm{
+    text-align: center;
+}
+
+  
+ 
+  .btn {
+    display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  text-align: center;
+  }
+
+
+.btn-m {
+    background-color: #ff735c;
+    color: white;
+    border: 2px solid #000000;
+    padding: 10px 40px;
+    margin: 20px 0; /* Add vertical margin to separate the buttons */
+    cursor: pointer;
+    width: 100%; /* Set the button width to 100% */
+    text-align: center;
+  }
+  
+
+  .btn-m:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+
+/* Style for button container (optional) */
+.btn-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+/* Style for the buttons (optional) */
+.btn + .btn {
+    margin-top: 40px; /* Add space between buttons */
+}
+
+/* Add additional styles as needed for your specific design */
