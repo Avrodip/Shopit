@@ -7,6 +7,8 @@ import Home from "./components/Home";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Products from "./components/Products";
+import Test from "./components/Test";
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   return (
