@@ -7,7 +7,7 @@ const Home = () => {
     <div className='btn-mm'>
       <h1>ADMIN LOGIN</h1>
       <div className='btn'>
-        <Link to="/product">
+        <Link to="/products">
           <button className='btn-m'>Product</button>
         </Link>
         <Link to="/Suppliers">
