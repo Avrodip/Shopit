@@ -3,11 +3,12 @@ const app = express();
 const cors = require("cors");
 const mysql = require("mysql2/promise");
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 const dbConfig = {
   user: "root",
   host: "localhost",
-  password: "root",
-  database: "aha",
+  password: "admin",
+  database: "shopit"  
 };
 
 app.use(express.json());
