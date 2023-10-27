@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 function Orderconfirmation({ logindet }) {
   const [data, setData] = useState([]);
   const loggedIn =
     logindet.username === "avro_25" && logindet.password === "avro@aha";
 
+  useEffect(() => {
+    if (loggedIn) {
+      fetchData(); // Fetch data when component is mounted
+      const intervalId = setInterval(fetchData, 1000); // Polling every 60 seconds
+
+      return () => {
+        clearInterval(intervalId); // Cleanup on unmount
+      };
+    }
+  }, [loggedIn]);
+
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:3002/orders", {
+      const response = await axios.get("http://localhost:3002/ordersconfirm", {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -21,12 +31,33 @@ function Orderconfirmation({ logindet }) {
     }
   };
 
-  if (loggedIn) {
-    fetchData();
-  }
+  const handleConfirm = async (orderId) => {
+    try {
+      console.log(orderId)
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        `http://localhost:3002/orderconfirm/${orderId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
 
-  const handleDelete = async (orderId) => {
-    // Implement delete logic here
+      console.log("Order confirmed:", response.data);
+
+      setData((prevData) =>
+        prevData.map((order) => {
+          if (order.Orders_id === orderId) {
+            return { ...order, Order_status: "not confirmed" };
+          }
+          return order;
+        })
+      );
+    } catch (error) {
+      console.error("Error confirming order:", error);
+    }
   };
 
   return (
@@ -48,33 +79,27 @@ function Orderconfirmation({ logindet }) {
                 </tr>
               </thead>
               <tbody>
-                {data.map((order) => (
-                  <tr key={order.Orders_id}>
-                    <td>{order.Orders_id}</td>
-                    <td>{order.User_id}</td>
-                    <td>{order.Order_date}</td>
-                    <td>{order.Payment_id}</td>
-                    <td>{order.Payment_method}</td>
-                    <td>{order.Pay_total}</td>
-                    <td>{order.Order_status}</td>
-                    <td>
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => handleDelete(order.order_id)}
-                      >
-                        Remove
-                      </button>
-                    </td>
-                    <td>
-                      <Link
-                        to={`/update-orderdetails/${order.order_id}`}
-                        className="btn btn-success"
-                      >
-                        Confirm
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
+                {data
+                  .filter((order) => order.Order_status !== "confirmed")
+                  .map((order) => (
+                    <tr key={order.Orders_id}>
+                      <td>{order.Orders_id}</td>
+                      <td>{order.User_id}</td>
+                      <td>{order.Order_date}</td>
+                      <td>{order.Payment_id}</td>
+                      <td>{order.Payment_method}</td>
+                      <td>{order.Pay_total}</td>
+                      <td>{order.Order_status}</td>
+                      <td>
+                        <button
+                          onClick={() => handleConfirm(order.Orders_id)}
+                          className="btn btn-success"
+                        >
+                          Confirm
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>

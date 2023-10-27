@@ -28,11 +28,11 @@ app.get("/admin", verify, async (req, res) => {
   }
 });
 
-app.get("/orders", verify, async (req, res) => {
+app.get("/ordersconfirm", verify, async (req, res) => {
   try {
     const connection = await mysql.createConnection(dbConfig);
 
-    const [rows] = await connection.execute("Select * from orders");
+    const [rows] = await connection.execute("Select * from orders where Order_status='not confirmed'");
 
     connection.end();
     res.status(200).json(rows);
@@ -41,6 +41,34 @@ app.get("/orders", verify, async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+
+app.post("/orderconfirm/:orderId", verify, async (req, res) => {
+  try {
+    const { orderId } = req.params;
+
+    const connection = await mysql.createConnection(dbConfig);
+
+    // Update the order with the specified order ID and set Order_status to "not confirmed"
+    const [result] = await connection.execute(
+      "UPDATE orders SET Order_status = 'confirmed' WHERE Orders_id = ?",
+      [orderId]
+    );
+
+    connection.end();
+
+    if (result.affectedRows === 1) {
+      res.status(200).json({ message: "Order is now set to 'confirmed'" });
+    } else {
+      res.status(404).json({ error: "Order not found" });
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
 
 app.get("/suppliers", async (req, res) => {
   try {
@@ -69,6 +97,21 @@ app.get("/users", verify, async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+app.get("/orderconfirm", verify, async (req, res) => {
+  try {
+    const connection = await mysql.createConnection(dbConfig);
+
+    const [rows] = await connection.execute("Select * from users");
+
+    connection.end();
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 
 app.post("/login", async (req, res) => {
   try {
