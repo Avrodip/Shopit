@@ -29,10 +29,10 @@ return (
         <Link to="/Suppliers">
           <button className='btn-m'>Supplier</button>
         </Link>
-        <Link to="/order">
+        <Link to="/orderconfirm">
           <button className='btn-m'>Order</button>
         </Link>
-        <Link to="/customer">
+        <Link to="/customers">
           <button className='btn-m'>Customer</button>
         </Link>
       </div>
