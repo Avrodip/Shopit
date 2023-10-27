@@ -276,6 +276,65 @@ app.post("/addSupplier", verify, async (req, res) => {
   res.status(200).json({ message: "Supplier added successfully" });
 });
 
+
+
+//Adding Products
+app.post("/addProducts", verify, async (req, res) => {
+  //console.log("req", req);
+
+  const {
+    Product_name,
+    Description,
+    Supplier_price,
+    Sell_price,
+    Product_category,
+    Supplier_id,
+    Admin_id,
+    imglink1,
+    imglink2,
+  } = req.body.productData;
+  // console.log("req.body", Email, password);
+  const connection = await mysql.createConnection(dbConfig);
+
+  connection.connect((err) => {
+    if (err) {
+      console.error("Error connecting to MySQL: " + err.stack);
+      return;
+    }
+  });
+
+  const query = `
+              INSERT INTO products (Product_name, Description, Supplier_price, Sell_price, Product_category, Supplier_id, Admin_id, imglink1, imglink2)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  const result = connection.query(
+    query,
+    [
+      Product_name,
+      Description,
+      Supplier_price,
+      Sell_price,
+      Product_category,
+      Supplier_id,
+      Admin_id,
+      imglink1,
+      imglink2,
+    ],
+    (err, result) => {
+      if (err) {
+        res.send({ err: err });
+      } else {
+        res.send({ msg: "Successfully data inserted" });
+      }
+    }
+  );
+
+  connection.end();
+  res.status(200).json({ message: "Product added successfully" });
+});
+
+
+
+
 function verify(req, res, next) {
   console.log("req", req.body.headers);
   const authHeader = req.body.headers["authorization"];
