@@ -226,7 +226,7 @@ app.post("/signup", async (req, res) => {
 
 //Adding Suppliers
 app.post("/addSupplier", verify, async (req, res) => {
-
+  //console.log("req", req);
   const {
     Company_name,
     Supplier_name,
@@ -236,50 +236,50 @@ app.post("/addSupplier", verify, async (req, res) => {
     Admin_id,
     Username,
     password,
-  } = req.body;
-
+  } = req.body.data;
+  // console.log("req.body", Email, password);
   const connection = await mysql.createConnection(dbConfig);
 
   connection.connect((err) => {
     if (err) {
-      console.error('Error connecting to MySQL: ' + err.stack);
+      console.error("Error connecting to MySQL: " + err.stack);
       return;
     }
-  })
+  });
 
   const query = `
       INSERT INTO suppliers (Company_name, Supplier_name, Email, Phone, Address, Admin_id, Username, password)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 
-  const [result] = connection.query(query, [
-    Company_name,
-    Supplier_name,
-    Email,
-    Phone,
-    Address,
-    Admin_id,
-    Username,
-    password,
-  ], (err, result) => {
-    if (err) {
-      res.send({ err: err })
+  const result = connection.query(
+    query,
+    [
+      Company_name,
+      Supplier_name,
+      Email,
+      Phone,
+      Address,
+      Admin_id,
+      Username,
+      password,
+    ],
+    (err, result) => {
+      if (err) {
+        res.send({ err: err });
+      } else {
+        res.send({ msg: "Successfully data inserted" });
+      }
     }
-    else {
-      res.send({ msg: "Successfully data inserted" })
-    }
-  });
+  );
 
   connection.end();
   res.status(200).json({ message: "Supplier added successfully" });
-
 });
 
-
-
-
 function verify(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  console.log(authHeader);
+  console.log("req", req.body.headers);
+  const authHeader = req.body.headers["authorization"];
+  console.log("auth", authHeader);
   const token = authHeader && authHeader.split(" ")[1];
   if (token == null) {
     return res.sendStatus(401);
