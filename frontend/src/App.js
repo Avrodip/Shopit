@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Products from "./components/Products";
 import Suppliers from "./components/Suppliers";
 import Orderconfirmation from "./components/Orderconfirmation";
+import Display from "./components/Display";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
