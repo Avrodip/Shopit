@@ -33,6 +33,7 @@ function App() {
           <Route path="/home" element={<Home loggedIn={loggedIn} />} />
           <Route path="/products" element={<Products loggedIn={loggedIn} />} />
           <Route path="/orderconfirm" element={<Orderconfirmation loggedIn={loggedIn} logindet={logindet}/>} />
+          <Route path="/displayproduct" element={<Display />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
