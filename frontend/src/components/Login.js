@@ -49,7 +49,7 @@ const Login = ({ setLoggedIn, setLogindet }) => {
         if (values.role === "admin") {
           navigate("/home"); // Redirect to the admin page
         } else {
-          navigate("/user-home"); // Redirect to the user home page, for example
+          navigate("/displayproduct"); // Redirect to the user home page, for example
         }
       } else if (response.status === 401) {
         toast.error("Invalid credentials", { autoClose: 3000 });
@@ -75,7 +75,10 @@ const Login = ({ setLoggedIn, setLogindet }) => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 border w-100" id="main">
+    <div
+      className="d-flex justify-content-center align-items-center vh-100 border w-100"
+      id="main"
+    >
       <div className="bg-white p-3 rounded w-25 border border-dark rounded p-4">
         <form action="" onSubmit={handleSubmit}>
           <h2 className="text-center mb-4">Log In</h2>
@@ -87,7 +90,7 @@ const Login = ({ setLoggedIn, setLogindet }) => {
               type="username"
               placeholder="Enter username"
               onChange={handleInput}
-              className="form-control rounded-0" 
+              className="form-control rounded-0"
               name="username"
             />
           </div>
