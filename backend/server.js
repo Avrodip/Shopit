@@ -129,6 +129,21 @@ app.get("/orderconfirm", verify, async (req, res) => {
 });
 
 
+app.get("/orderconfirm", verify, async (req, res) => {
+  try {
+    const connection = await mysql.createConnection(dbConfig);
+
+    const [rows] = await connection.execute("Select * from users");
+
+    connection.end();
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
 app.post("/login", async (req, res) => {
   try {
     const { username, password, role } = req.body;

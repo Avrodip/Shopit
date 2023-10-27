@@ -115,7 +115,6 @@ const Login = ({ setLoggedIn, setLogindet }) => {
             >
               <option value="admin">Admin</option>
               <option value="user">User</option>
-              <option value="supplier">Supplier</option>
             </select>
           </div>
           <button className="btn btn-success w-100 mb-2" type="submit">

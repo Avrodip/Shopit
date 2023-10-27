@@ -10,6 +10,7 @@ import Suppliers from "./components/Suppliers";
 import Orderconfirmation from "./components/Orderconfirmation";
 import Confirmorder from "./components/Confirmedorder";
 
+import Display from "./components/Display";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [logindet, setLogindet] = useState({ username: "", password: "" });
@@ -34,6 +35,14 @@ function App() {
           <Route path="/products" element={<Products loggedIn={loggedIn} />} />
           <Route path="/orderconfirm" element={<Orderconfirmation loggedIn={loggedIn} logindet={logindet}/>} />
           <Route path="/confirmedorders" element={<Confirmorder loggedIn={loggedIn} logindet={logindet}/>} />
+          <Route
+            path="/orderconfirm"
+            element={
+              <Orderconfirmation loggedIn={loggedIn} logindet={logindet} />
+            }
+          />
+          <Route path="/displayproduct" element={<Display />}></Route>
+          <Route path="/suppliers" element={<Suppliers />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
