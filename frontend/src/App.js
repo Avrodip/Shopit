@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Products from "./components/Products";
 import Suppliers from "./components/Suppliers";
 import Orderconfirmation from "./components/Orderconfirmation";
+import Confirmorder from "./components/Confirmedorder";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -29,9 +30,10 @@ function App() {
             }
           />
           <Route path="/create" element={<Signup loggedIn={loggedIn} />} />
-          <Route path="/home" element={<Home loggedIn={loggedIn} />} />
+          <Route path="/home" element={<Home loggedIn={loggedIn} logindet={logindet} />} />
           <Route path="/products" element={<Products loggedIn={loggedIn} />} />
           <Route path="/orderconfirm" element={<Orderconfirmation loggedIn={loggedIn} logindet={logindet}/>} />
+          <Route path="/confirmedorders" element={<Confirmorder loggedIn={loggedIn} logindet={logindet}/>} />
         </Routes>
       </BrowserRouter>
     </div>

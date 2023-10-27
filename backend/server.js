@@ -49,7 +49,6 @@ app.post("/orderconfirm/:orderId", verify, async (req, res) => {
 
     const connection = await mysql.createConnection(dbConfig);
 
-    // Update the order with the specified order ID and set Order_status to "not confirmed"
     const [result] = await connection.execute(
       "UPDATE orders SET Order_status = 'confirmed' WHERE Orders_id = ?",
       [orderId]
@@ -67,6 +66,23 @@ app.post("/orderconfirm/:orderId", verify, async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+
+
+app.get("/confirmedorders", verify, async (req, res) => {
+  try {
+    const connection = await mysql.createConnection(dbConfig);
+
+    const [rows] = await connection.execute("Select * from orders where Order_status='confirmed'");
+
+    connection.end();
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 
 
 
@@ -248,6 +264,7 @@ app.post("/addSupplier", verify, async (req, res) => {
 
 function verify(req, res, next) {
   const authHeader = req.headers["authorization"];
+  console.log(authHeader);
   const token = authHeader && authHeader.split(" ")[1];
   if (token == null) {
     return res.sendStatus(401);
