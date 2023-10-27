@@ -142,6 +142,8 @@ const Suppliers = () => {
                 onChange={(e) => setAdmin_id(e.target.value)}
               >
                 <option value="101">101</option>
+                <option value="102">102</option>
+                <option value="103">103</option>
                 {/* Add more Admin IDs as options if needed */}
               </select>
             </div>
