@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import axios from 'axios';
 import "./style.css";
+
 const Products = () => {
   const divStyle = {
     backgroundImage:
@@ -10,28 +13,67 @@ const Products = () => {
     marginTop: "50px",
   };
 
-  const [productName, setProductName] = useState("user");
-  const [prodDesc, setProdDesc] = useState("");
-  const [supPrice, setSupPrice] = useState("");
-  const [selPrice, setSelPrice] = useState("");
-  const [cat, setCat] = useState("");
-  const [adminID, setAdminID] = useState("");
-  const [supID, setSupID] = useState("");
-  const [img1, setImg1] = useState("");
-  const [img2, setImg2] = useState("");
+  const [Product_name, setProduct_name] = useState("");
+  const [Description, setDescription] = useState("");
+  const [Supplier_price, setSupplier_price] = useState("");
+  const [Sell_price, setSell_price] = useState("");
+  const [Product_category, setProduct_category] = useState("T-shirt");
+  const [Supplier_id, setSupplier_id] = useState("501");
+  const [Admin_id, setAdmin_id] = useState("101");
+  const [imglink1, setimglink1] = useState("");
+  const [imglink2, setimglink2] = useState("");
 
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+
+
+
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // You can submit the form data or perform other actions here
+  
+    const productData = {
+      Product_name,
+      Description,
+      Supplier_price,
+      Sell_price,
+      Product_category,
+      Supplier_id,
+      Admin_id,
+      imglink1,
+      imglink2,
+    };
+  
+    try {
+      const token = localStorage.getItem("token"); // Retrieve the JWT token from storage
+      console.log("token is", token);
+      const response = await axios.post("http://localhost:3002/addProducts", {
+        headers: {
+          Content_Type: "application/JSON",
+          authorization: `Bearer ${token}`,
+        },
+        productData,
+      });
+  
+      if (response.data) {
+        console.log("Product added successfully");
+        toast.success("Product Added", { autoClose: 3000 });
+        // Redirect to a success page
+      } else {
+        console.error("Error adding Product");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
+
+
+
+
+
   return (
-    <div
-      className="d-flex justify-content-center align-items-center vh-100"
-      style={divStyle}
-    >
+    <div className="d-flex justify-content-center align-items-center vh-100" style={divStyle}>
       <div className="bg-white p-3 rounded w-75 border border-dark rounded p-4">
         <form onSubmit={handleSubmit}>
           <h2 className="text-center mb-4">Register Products</h2>
@@ -44,8 +86,8 @@ const Products = () => {
                 type="text"
                 placeholder="Enter Product Name"
                 className="form-control rounded-0"
-                value={productName}
-                onChange={(e) => setProductName(e.target.value)}
+                value={Product_name}
+                onChange={(e) => setProduct_name(e.target.value)}
               />
             </div>
             <div className="col-md-6 mb-3">
@@ -56,90 +98,91 @@ const Products = () => {
                 type="text"
                 placeholder="Enter Product Description"
                 className="form-control rounded-0"
-                value={prodDesc}
-                onChange={(e) => setProdDesc(e.target.value)}
+                value={Description}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </div>
           </div>
           <div className="row">
             <div className="col-md-6 mb-3">
-              <label htmlFor="SupPrice" className="form-label">
+              <label htmlFor="Supplier_price" className="form-label">
                 Supplier Price
               </label>
               <input
-                type="text"
+                type="number"
                 placeholder="Enter Supplier Price"
                 className="form-control rounded-0"
-                value={supPrice}
-                onChange={(e) => setSupPrice(e.target.value)}
+                value={Supplier_price}
+                onChange={(e) => setSupplier_price(e.target.value)}
               />
             </div>
             <div className="col-md-6 mb-3">
-              <label htmlFor="SelPrice" className="form-label">
-                Seller Price
+              <label htmlFor="Sell_price" className="form-label">
+                Sell Price
               </label>
               <input
-                type="text"
+                type="number"
                 placeholder="Enter Seller Price"
                 className="form-control rounded-0"
-                value={selPrice}
-                onChange={(e) => setSelPrice(e.target.value)}
+                value={Sell_price}
+                onChange={(e) => setSell_price(e.target.value)}
               />
             </div>
-            <div className="mb-3">
+            <div className="col-md-6 mb-3">
               <label htmlFor="category" className="form-label">
                 Product Category
               </label>
               <select
                 className="form-control rounded-0"
-                value={cat}
-                onChange={(e) => setCat(e.target.value)}
+                value={Product_category}
+                onChange={(e) => setProduct_category(e.target.value)}
               >
                 <option value="tshirt">T-shirt</option>
                 <option value="shoes">Shoes</option>
                 <option value="bag">Bagpack</option>
               </select>
             </div>
-            <div className="mb-3">
-              <label htmlFor="admin" className="form-label">
-                AdminID
-              </label>
-              <select
-                className="form-control rounded-0"
-                value={adminID}
-                onChange={(e) => setAdminID(e.target.value)}
-              >
-                <option value="101">101</option>
-                <option value="102">102</option>
-                <option value="103">103</option>
-              </select>
-            </div>
-            <div className="mb-3">
+          </div>
+          <div className="row">
+            <div className="col-md-6 mb-3">
               <label htmlFor="supplier" className="form-label">
                 Supplier ID
               </label>
               <select
                 className="form-control rounded-0"
-                value={supID}
-                onChange={(e) => setSupID(e.target.value)}
+                value={Supplier_id}
+                onChange={(e) => setSupplier_id(e.target.value)}
               >
                 <option value="501">501</option>
                 <option value="502">502</option>
                 <option value="503">503</option>
               </select>
             </div>
+            <div className="col-md-6 mb-3">
+              <label htmlFor="admin" className="form-label">
+                AdminID
+              </label>
+              <select
+                className="form-control rounded-0"
+                value={Admin_id}
+                onChange={(e) => setAdmin_id(e.target.value)}
+              >
+                <option value="101">101</option>
+                <option value="102">102</option>
+                <option value="103">103</option>
+              </select>
+            </div>
           </div>
-
           <div className="mb-3">
             <label htmlFor="img1" className="form-label">
               Image 1 link
             </label>
             <input
               type="text"
-              placeholder="Enter Image 1 link"
+              placeholder="Enter Image link"
               className="form-control rounded-0"
-              value={img1}
-              onChange={(e) => setImg1(e.target.value)}
+              value={imglink1}
+              onChange={(e) => setimglink1(e.target.value)}
             />
           </div>
           <div className="mb-3">
@@ -148,10 +191,10 @@ const Products = () => {
             </label>
             <input
               type="text"
-              placeholder="Enter Image 2 link"
+              placeholder="Enter Image link"
               className="form-control rounded-0"
-              value={img2}
-              onChange={(e) => setImg2(e.target.value)}
+              value={imglink2}
+              onChange={(e) => setimglink2(e.target.value)}
             />
           </div>
 
