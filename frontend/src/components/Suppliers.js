@@ -51,7 +51,7 @@ const Suppliers = () => {
 
       if (response.data) {
         console.log("Supplier added successfully");
-        toast.success("Supplier Added", { autoClose: 3000 });
+        // toast.success("Supplier Added", { autoClose: 3000 });
         // Redirect to a success page
       } else {
         console.error("Error adding supplier");

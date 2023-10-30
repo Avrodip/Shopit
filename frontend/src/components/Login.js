@@ -40,16 +40,16 @@ const Login = ({ setLoggedIn, setLogindet }) => {
         toast.success("Login successful", { autoClose: 3000 });
         setLoggedIn(true);
 
-        // Set logindet based on your requirements
+       
         setLogindet({
           username: values.username,
           password: values.password,
         });
 
         if (values.role === "admin") {
-          navigate("/home"); // Redirect to the admin page
+          navigate("/home"); 
         } else {
-          navigate("/user-home"); // Redirect to the user home page, for example
+          navigate("/displayproduct"); 
         }
       } else if (response.status === 401) {
         toast.error("Invalid credentials", { autoClose: 3000 });
