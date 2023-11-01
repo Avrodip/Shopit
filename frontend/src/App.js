@@ -38,6 +38,10 @@ function App() {
           <Route path="/displayproduct" element={<Display />}></Route>
           <Route path="/suppliers" element={<Suppliers />}></Route>
           <Route path="/addshipment/:ordersId" element={<AddShipment logindet={logindet}/>} />
+          <Route path="/displayproduct" element={<Display logindet={logindet} />}/>
+          <Route path="/suppliers" element={<Suppliers />}></Route>
+         <Route path="/viewCart/:userID" element={<ViewCart logindet={logindet} />}/>
+            
         </Routes>
       </BrowserRouter>
     </div>
