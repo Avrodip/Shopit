@@ -9,6 +9,8 @@ import Products from "./components/Products";
 import Suppliers from "./components/Suppliers";
 import Orderconfirmation from "./components/Orderconfirmation";
 import Confirmorder from "./components/Confirmedorder";
+import Display from "./components/Display";
+import ViewCart from "./components/ViewCart";
 
 import Display from "./components/Display";
 function App() {
