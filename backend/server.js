@@ -354,6 +354,32 @@ app.get("/products", async (req, res) => {
   }
 });
 
+app.get("/viewCart", async (req, res) => {
+  try {
+    //console.log("user", req);
+    const { user_id } = req.query;
+    const db = await mysql.createConnection(dbConfig);
+    console.log("user", user_id);
+    const query = `SELECT u.First_name, p.Product_name, p.imglink1, c.User_id, c.Quantity 
+    FROM users u, Products p, Cart c 
+    WHERE p.Product_id = c.Product_id 
+    AND u.User_id = c.User_id 
+    AND u.User_id = ${user_id}`;
+
+    const data = await db.query(query);
+    console.log(data);
+    res.status(200).json({
+      status: "sucess",
+      data,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      message: error,
+    });
+  }
+});
+
 const port = 3002;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
