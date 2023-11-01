@@ -100,12 +100,16 @@ app.get("/suppliers", async (req, res) => {
   }
 });
 
-app.get("/users", verify, async (req, res) => {
+app.get("/users", async (req, res) => {
   try {
+    const { Username } = req.query;
+
     const connection = await mysql.createConnection(dbConfig);
-
-    const [rows] = await connection.execute("Select * from users");
-
+    ("");
+    const [rows] = await connection.execute(
+      `Select User_id from users where Username='${Username}'`
+    );
+    // console.log(rows[0]);
     connection.end();
     res.status(200).json(rows);
   } catch (error) {
