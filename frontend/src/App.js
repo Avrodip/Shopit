@@ -35,12 +35,6 @@ function App() {
           <Route path="/products" element={<Products loggedIn={loggedIn} />} />
           <Route path="/orderconfirm" element={<Orderconfirmation loggedIn={loggedIn} logindet={logindet}/>} />
           <Route path="/confirmedorders" element={<Confirmorder loggedIn={loggedIn} logindet={logindet}/>} />
-          <Route
-            path="/orderconfirm"
-            element={
-              <Orderconfirmation loggedIn={loggedIn} logindet={logindet} />
-            }
-          />
           <Route path="/displayproduct" element={<Display />}></Route>
           <Route path="/suppliers" element={<Suppliers />}></Route>
           <Route path="/addshipment/:ordersId" element={<AddShipment logindet={logindet}/>} />
