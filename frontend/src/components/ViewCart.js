@@ -2,13 +2,14 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const ViewCart = (props) => {
   const [userId, setUserId] = useState("");
   const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
   const { userID } = useParams();
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
@@ -22,6 +23,10 @@ const ViewCart = (props) => {
       const data = await response.data.data[0];
 
       setItems(data);
+      if (response.data.data[0][0] == null) {
+        console.log("Empty Cart");
+        navigate("/emptyCart");
+      }
       console.log("itemsdata", items);
     } catch (err) {
       console.log(err);
