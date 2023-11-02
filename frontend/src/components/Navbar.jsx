@@ -8,7 +8,7 @@ const NavbarContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #ff735c;
+  background-color: #111111;
   opacity: 0.9;
 `;
 
@@ -73,7 +73,14 @@ function Navbar({ loggedIn, setLoggedIn }) {
       </Logo>
       <Links>
         <li>
-          <Link to="/home">Home</Link>
+          <Link
+            to="/home"
+            onClick={() => {
+              navigate("/home");
+            }}
+          >
+            Home
+          </Link>
         </li>
         <li>
           <Link to="/Categories">Categories</Link>
@@ -94,8 +101,11 @@ function Navbar({ loggedIn, setLoggedIn }) {
           href="#"
           className="action_btn"
           onClick={() => navigate("/login")}
+          style={{ marginight: "50%" }}
         >
-          <span className="gs">Log In</span>
+          <span className="gs">
+            <center>Log In</center>
+          </span>
         </ActionButton>
       )}
       <ToggleButton>
