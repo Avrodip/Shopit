@@ -43,6 +43,7 @@ function App() {
           <Route path="/displayproduct" element={<Display logindet={logindet} />}/>
           <Route path="/suppliers" element={<Suppliers />}></Route>
          <Route path="/viewCart/:userID" element={<ViewCart logindet={logindet} />}/>
+            <Route path="/emptyCart" element={<EmptyCart />}></Route>
             
         </Routes>
       </BrowserRouter>
