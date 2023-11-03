@@ -21,8 +21,7 @@ const Login = ({ setLoggedIn, setLogindet }) => {
     };
 
     try {
-      console.log(values.username);
-      console.log(values.password);
+      
       const response = await fetch("http://localhost:3002/login", {
         method: "POST",
         headers: {
@@ -116,7 +115,7 @@ const Login = ({ setLoggedIn, setLogindet }) => {
               value={values.role}
               onChange={handleInput}
             >
-              <option value="admin">Admin</option>
+        
               <option value="user">User</option>
             </select>
           </div>
